@@ -16,6 +16,37 @@ node_modules/
 
 # OS 
 .DS_Store
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.stackdump
+*.lnk
+*.cab
+*.tmp
+*.temp
+*.bak
+*.dmp
+*.log
+*.old
+*.chk
+*.swp
+*.swo
+*.swn
+*.sublime-workspace
+*.sublime-project
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.ncb
+*.opendb
+*.VC.db
+*.VC.VC.opendb
+$Recycle.Bin/
+System Volume Information/
 
 # some work file 
 work-folder
