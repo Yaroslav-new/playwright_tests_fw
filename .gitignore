@@ -48,6 +48,9 @@ $RECYCLE.BIN/
 $Recycle.Bin/
 System Volume Information/
 
+# Environment variables
+.env
+
 # some work file 
 work-folder
 
