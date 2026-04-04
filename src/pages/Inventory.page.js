@@ -3,32 +3,56 @@ const { BaseSwagLabPage } = require('./BaseSwagLab.page');
 export class InventoryPage extends BaseSwagLabPage {
     url = '/inventory.html';
 
-    get headerTitle() { return this.page.locator('.title'); } //
+    headerTitleSelector = '.title';
 
-    get inventoryItems() { return this.page.locator('.inventory_item'); }
+    inventoryItemsSelector = '.inventory_item';
 
-    get addItemToCartBtns() { return this.page.locator('[id^="add-to-cart"]'); }
+    addToCartButtonSelector = '[id^="add-to-cart"]';
+
+    itemNameSelector = '.inventory_item_name';
+
+    itemDescriptionSelector = '.inventory_item_desc';
+
+    itemPriceSelector = '.inventory_item_price';
+
+    get headerTitle() { return this.page.locator(this.headerTitleSelector); }
+
+    get inventoryItems() { return this.page.locator(this.inventoryItemsSelector); }
+
+    get addItemToCartBtns() { return this.page.locator(this.addToCartButtonSelector); }
 
     async addItemToCartById(id) {
-        await this.addItemToCartBtns.nth(id).click();
+        await this.inventoryItems.nth(id).locator(this.addToCartButtonSelector).click();
+    }
+
+    async getInventoryItemDataById(id) {
+        const item = this.inventoryItems.nth(id);
+
+        return {
+            name: await item.locator(this.itemNameSelector).textContent(),
+            description: await item.locator(this.itemDescriptionSelector).textContent(),
+            price: await item.locator(this.itemPriceSelector).textContent(),
+        };
     }
 
     async addRandomItems(count) {
-        let added = 0;
+        const addNextRandomItem = async (remaining, added) => {
+            if (remaining === 0) {
+                return added;
+            }
 
-        for (let i = 0; i < count; i += 1) {
-            // Only buttons with id starting "add-to-cart" are for items not yet in cart.
             const buttons = this.addItemToCartBtns;
             const total = await buttons.count();
-            if (total === 0) break;
+            if (total === 0) {
+                return added;
+            }
 
-            // Select a random available item and add it.
             const index = Math.floor(Math.random() * total);
             await buttons.nth(index).click();
-            added += 1;
-        }
 
-        // Return how many items were added.
-        return added;
+            return addNextRandomItem(remaining - 1, added + 1);
+        };
+
+        return addNextRandomItem(count, 0);
     }
 }

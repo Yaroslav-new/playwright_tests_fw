@@ -1,12 +1,17 @@
 const { BasePage } = require('./Base.page');
 
 export class BaseSwagLabPage extends BasePage {
-    // header
-    get mainMenuBtn() { return this.page.locator('.bm-icon'); }
+    mainMenuButtonSelector = '.bm-icon';
 
-    get shopingCart() { return this.page.locator('.shopping_cart_link'); }
+    shoppingCartSelector = '.shopping_cart_link';
 
-    get shopingCartBadge() { return this.page.locator('.shopping_cart_badge'); }
+    shoppingCartBadgeSelector = '.shopping_cart_badge';
+
+    get mainMenuBtn() { return this.page.locator(this.mainMenuButtonSelector); }
+
+    get shopingCart() { return this.page.locator(this.shoppingCartSelector); }
+
+    get shopingCartBadge() { return this.page.locator(this.shoppingCartBadgeSelector); }
 
     async getNumberOfItemsInCart() {
         return this.shopingCartBadge.textContent();
