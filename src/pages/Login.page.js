@@ -1,11 +1,17 @@
 const { BasePage } = require('./Base.page');
 
 export class LoginPage extends BasePage {
-    get userName() { return this.page.locator('#user-name'); }
+    userNameSelector = '#user-name';
 
-    get password() { return this.page.locator('#password'); }
+    passwordSelector = '#password';
 
-    get loginBtn() { return this.page.locator('#login-button'); }
+    loginButtonSelector = '#login-button';
+
+    get userName() { return this.page.locator(this.userNameSelector); }
+
+    get password() { return this.page.locator(this.passwordSelector); }
+
+    get loginBtn() { return this.page.locator(this.loginButtonSelector); }
 
     async performLogin(userName, password) {
         await this.userName.fill(userName);
